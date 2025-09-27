@@ -5,27 +5,20 @@ ENV DEBIAN_FRONTEND=noninteractive \
     WINEDEBUG=-all \
     WINEARCH=win64 \
     WINEPREFIX=/wine \
-    MQL_WORK_DIR=/work/MQL5 \
-    MQL_INCLUDE_DIR=/work/MQL5 \
-    MQL_LOG_FILE=/work/build/compile.log
+    WINEDLLOVERRIDES="mshtml=,mscoree="
 
 # Install dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        wine64 \
-        winbind \
         ca-certificates \
-        wget \
-        libimage-exiftool-perl && \
+        libimage-exiftool-perl \
+        wine && \
     rm -rf /var/lib/apt/lists/*
 
-# Symlinks for Wine
-RUN ln -s /usr/lib/wine/wine64 /usr/bin/wine && \
-    ln -s /usr/lib/wine/wineserver64 /usr/bin/wineserver
-
 # Initiaize Wine prefix
-RUN wineboot --init 2>/dev/null && \
-    wineserver --wait || true
+RUN mkdir -p /wine && \
+    wineboot -u && \
+    wineserver -w
 
 # Add MetaEditor executable
 COPY bin/MetaEditor64.exe /opt/mql/metaeditor64.exe
