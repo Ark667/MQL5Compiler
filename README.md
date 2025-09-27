@@ -29,7 +29,7 @@ docker push <host>/acme/docker.mt5-compiler:latest
 docker run -it --rm --name mt5-compiler -v ${PWD}:/work mql5-compiler:latest /opt/mql/scripts/check-version.sh
 
 # Compile
-docker run -it --rm --name mt5-compiler -v ${PWD}:/work mql5-compiler:latest wine /opt/mql/metaEditor64.exe /portable /compile:"/work/test/mql64-test.mq5" /log:"/work/build/compile.log"
+docker run -it --rm --name mt5-compiler -v ${PWD}:/work mql5-compiler:latest /opt/mql/scripts/mql5-compile.sh Experts/Testing/ConfigurationTest.mq5
 ```
 
 ## Comprobaciones
@@ -61,5 +61,5 @@ wine cmd /c "test\\wine-test.bat"
 exiftool /opt/mql/metaeditor64.exe | grep -E '^Product Version[[:space:]]*:' | awk -F': ' '{print $2}'
 
 # Check compilation
-wine /opt/mql/metaEditor64.exe /portable /compile:"/work/test/mql64-test.mq5" /log:"/work/build/compile.log"
+wine /opt/mql/metaeditor64.exe /portable /compile:"Z:/work/Experts/Testing/ConfigurationTest.mq5" /inc:Z:/work  /log:"Z:/work/compile.log"
 ```
