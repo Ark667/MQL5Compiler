@@ -7,21 +7,6 @@ Compilar imagen.
 docker build -t mql5-compiler:latest .
 ```
 
-Publicar imágen en el registro privado de GItea.
-
-```powershell
-# Docker login
-docker login <host> `
-  -u <user>  `
-  -p <PAT (package:write)>
-
-# Tag docker image with registry
-docker build -t <host>/acme/docker.mt5-compiler:latest .
-
-# Push tagged image to
-docker push <host>/acme/docker.mt5-compiler:latest
-```
-
 ## Uso
 
 ```powershell

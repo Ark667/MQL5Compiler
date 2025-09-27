@@ -27,6 +27,11 @@ RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
 # Add MetaEditor executable
 COPY bin/MetaEditor64.exe /opt/mql/metaeditor64.exe
 
+# Initiaize Wine prefix
+RUN mkdir -p /wine && \
+    wineboot -u && \
+    wineserver -w
+    
 # Add scripts
 COPY scripts/check-version.sh /opt/mql/scripts/check-version.sh
 COPY scripts/mql5-compile.sh /opt/mql/scripts/mql5-compile.sh
