@@ -16,7 +16,17 @@ RUN apt-get update && \
     git \
     gnupg \
     libimage-exiftool-perl \
+    tree \
     wine && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Wine32 (for compatibility)
+RUN dpkg --add-architecture i386 && \
+    DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
+    libc6:i386 \
+    libstdc++6:i386 \
+    libwine:i386 \
+    wine32 && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Node.js
@@ -31,7 +41,7 @@ COPY bin/MetaEditor64.exe /opt/mql/metaeditor64.exe
 RUN mkdir -p /wine && \
     wineboot -u && \
     wineserver -w
-    
+
 # Add scripts
 COPY scripts/check-version.sh /opt/mql/scripts/check-version.sh
 COPY scripts/mql5-compile.sh /opt/mql/scripts/mql5-compile.sh
