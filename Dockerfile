@@ -20,15 +20,6 @@ RUN apt-get update && \
     wine && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Wine32 (for compatibility)
-RUN dpkg --add-architecture i386 && \
-    DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
-    libc6:i386 \
-    libstdc++6:i386 \
-    libwine:i386 \
-    wine32 && \
-    rm -rf /var/lib/apt/lists/*
-
 # Install Node.js
 RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
     && apt-get install -y nodejs \
