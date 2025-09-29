@@ -17,7 +17,8 @@ RUN apt-get update && \
     gnupg \
     libimage-exiftool-perl \
     tree \
-    wine && \
+    wine \
+    zip  && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Node.js
